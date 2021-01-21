@@ -4,20 +4,37 @@
 <head>
     <meta charset="utf-8"/>
     <title>{% block title %}My shop{% endblock %}</title>
-    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+          crossorigin="anonymous">
+    <link href="{% static 'css/shop.css' %}" rel="stylesheet">
 </head>
 <body>
 <div id="header">
-    <a href="/" class="logo">For You</a>
+    <a href="/" class="logo">For you</a>
 </div>
 <div id="subheader">
     <div class="cart">
-        Твоя корзина пуста.
-    </div>
+    {% with total_items=cart|length %}
+        {% if cart|length > 0 %}
+            Твоя корзина:
+            <a href="{% url 'cart:cart_detail' %}">
+                {{ total_items }} item{{ total_items|pluralize }},
+                {{ cart.get_total_price }} ₽
+            </a>
+        {% else %}
+            Твоя корзина пуста.
+        {% endif %}
+    {% endwith %}
+</div>
 </div>
 <div id="content">
     {% block content %}
     {% endblock %}
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous">
+</script>
 </body>
 </html>

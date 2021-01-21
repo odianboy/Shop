@@ -1,7 +1,7 @@
 {% extends "shop/base.html" %}
 {% load static %}
 {% block title %}
-    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+    {% if category %}{{ category.name }}{% else %}For You{% endif %}
 {% endblock %}
 {% block content %}
     <div id="sidebar">
@@ -18,14 +18,14 @@
         </ul>
     </div>
     <div id="main" class="product-list">
-        <h1>{% if category %}{{ category.name }}{% else %}Продукты{% endif %}</h1>
+        <h1>{% if category %}{{ category.name }}{% else %}Продукция{% endif %}</h1>
         {% for product in products %}
             <div class="item">
                 <a href="{{ product.get_absolute_url }}">
                     <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
                 </a>
                 <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
-                ₽{{ product.price }}
+                {{ product.price }} ₽
             </div>
         {% endfor %}
     </div>
